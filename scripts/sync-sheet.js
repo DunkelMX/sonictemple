@@ -73,7 +73,7 @@ function fetchCsv(sheetId, gid) {
       headers: { 'User-Agent': 'sonictemple-planner/1.0' },
     }, res => {
       // Follow redirect (Google Sheets export redirects once)
-      if (res.statusCode === 301 || res.statusCode === 302) {
+      if (res.statusCode === 301 || res.statusCode === 302 || res.statusCode === 307 || res.statusCode === 308) {
         https.get(res.headers.location, {
           headers: { 'User-Agent': 'sonictemple-planner/1.0' },
         }, res2 => collectBody(res2, resolve, reject));
