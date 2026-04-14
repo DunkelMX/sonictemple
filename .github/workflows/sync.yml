@@ -1,4 +1,5 @@
 name: Sync Schedule from Google Sheet
+# Sync triggered via workflow_dispatch or every 30 minutes
 
 on:
   schedule:
