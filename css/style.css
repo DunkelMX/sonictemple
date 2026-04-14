@@ -1,0 +1,853 @@
+/* =============================================================
+   SonicTemple Planner — css/style.css
+   Dark metal aesthetic: Bebas Neue headings, Inter body
+   ============================================================= */
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+/* ── Design Tokens ── */
+:root {
+  --bg:          #0a0a0a;
+  --surface:     #141414;
+  --surface-2:   #1e1e1e;
+  --surface-3:   #272727;
+  --border:      #2a2a2a;
+  --red:         #cc0000;
+  --red-dim:     #881111;
+  --gold:        #f0a500;
+  --gold-dim:    #a06800;
+  --text:        #f0f0f0;
+  --text-muted:  #777;
+  --text-dim:    #444;
+  --radius:      4px;
+  --nav-h:       54px;
+  --tabs-h:      44px;
+}
+
+/* ── Base ── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  line-height: 1.4;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  padding: 0 20px;
+  background: #000;
+  border-bottom: 2px solid var(--red);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-links a {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav-links a:hover { color: var(--text); background: var(--surface-2); }
+.nav-links a.active { color: var(--red); }
+
+/* ============================================================
+   DAY TABS
+   ============================================================ */
+
+.day-tabs {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 90;
+  display: flex;
+  gap: 2px;
+  padding: 6px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  height: var(--tabs-h);
+  align-items: center;
+}
+
+.day-tab {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1rem;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  padding: 5px 18px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+
+.day-tab:hover { color: var(--text); border-color: var(--border); }
+.day-tab.active {
+  color: var(--red);
+  border-color: var(--red-dim);
+  background: rgba(204,0,0,0.08);
+}
+
+/* ============================================================
+   SCHEDULE PAGE — TIMELINE
+   ============================================================ */
+
+.schedule-page main { padding-bottom: 40px; }
+
+.timeline-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Stage header row — sticks below nav + day tabs */
+.timeline-header {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--tabs-h));
+  z-index: 80;
+  display: flex;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  min-width: 860px;
+}
+
+.time-gutter {
+  width: 56px;
+  flex-shrink: 0;
+}
+
+.stage-header {
+  flex: 1;
+  min-width: 140px;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  padding: 8px 6px 6px;
+  text-align: center;
+  border-bottom: 3px solid;
+  color: var(--text);
+  background: var(--surface);
+}
+
+/* Timeline body */
+.timeline-body {
+  display: flex;
+  min-width: 860px;
+  position: relative;
+}
+
+.time-axis {
+  width: 56px;
+  flex-shrink: 0;
+  position: relative;
+  border-right: 1px solid var(--border);
+}
+
+.time-label {
+  position: absolute;
+  right: 6px;
+  transform: translateY(-50%);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Horizontal grid line at each time label */
+.time-label::after {
+  content: '';
+  position: absolute;
+  left: calc(100% + 6px);
+  top: 50%;
+  width: 10000px;
+  height: 1px;
+  background: var(--border);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Stage columns */
+.stage-col {
+  flex: 1;
+  min-width: 140px;
+  position: relative;
+  border-right: 1px solid var(--border);
+}
+
+.stage-col:last-child { border-right: none; }
+
+/* Band cards */
+.band-card {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  background: var(--surface);
+  border-left: 3px solid;
+  border-radius: var(--radius);
+  padding: 3px 5px 3px 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.12s, box-shadow 0.12s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.band-card:hover {
+  background: var(--surface-3);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  z-index: 20;
+}
+
+.band-card.has-picks {
+  box-shadow: inset 0 0 0 1px rgba(240,165,0,0.2);
+}
+
+.band-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.band-time-label {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.friend-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.friend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+/* ============================================================
+   PICKS PAGE
+   ============================================================ */
+
+.picks-page main { padding: 0 16px 40px; max-width: 1200px; margin: 0 auto; }
+
+.picks-controls {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--tabs-h));
+  z-index: 70;
+  background: var(--bg);
+  padding: 10px 0 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  gap: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 2px);
+  padding: 3px;
+}
+
+.filter-btn {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 4px 12px;
+  border-radius: var(--radius);
+  transition: all 0.12s;
+}
+
+.filter-btn:hover { color: var(--text); background: var(--surface-2); }
+.filter-btn.active { color: var(--text); background: var(--surface-3); }
+.filter-btn.active-red { color: var(--red); background: rgba(204,0,0,0.1); }
+.filter-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.me-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.me-selector select {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Day sections */
+.day-section { margin-top: 24px; }
+
+.day-section-heading {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.picks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+}
+
+/* Pick cards */
+.pick-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+  position: relative;
+}
+
+.pick-card:hover { background: var(--surface-2); border-color: var(--surface-3); }
+
+.pick-card-stage-bar {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.pick-card-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  padding-left: 8px;
+  line-height: 1.2;
+}
+
+.pick-card-meta {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  padding-left: 8px;
+  margin-top: 2px;
+}
+
+.pick-card-friends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+  padding-left: 8px;
+}
+
+.friend-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #fff;
+  transition: opacity 0.12s;
+}
+
+.friend-chip.inactive {
+  background: var(--surface-3) !important;
+  color: var(--text-dim);
+  opacity: 0.45;
+}
+
+.empty-state {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   ATTENDING SELECTOR (shared — picks + report pages)
+   ============================================================ */
+
+.attending-selector {
+  margin-left: auto;
+}
+
+.attending-selector summary {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  list-style: none;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: color 0.12s;
+  user-select: none;
+}
+
+.attending-selector summary:hover { color: var(--text); }
+.attending-selector summary::-webkit-details-marker { display: none; }
+
+.attending-checkboxes {
+  position: absolute;
+  right: 16px;
+  top: calc(100% + 6px);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  z-index: 200;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+.attending-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.attending-checkboxes input[type="checkbox"] {
+  accent-color: var(--red);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+/* ============================================================
+   REPORT PAGE
+   ============================================================ */
+
+.report-page main { padding: 0 0 40px; overflow-x: hidden; }
+
+.report-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0;
+}
+
+.report-inner {
+  position: relative;
+}
+
+.report-ruler {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--tabs-h));
+  z-index: 75;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  height: 32px;
+}
+
+.ruler-label {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.ruler-tick {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 6px;
+  background: var(--border);
+}
+
+.report-tracks-outer {
+  position: relative;
+}
+
+.report-friend-row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+}
+
+.report-friend-label {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+
+.report-friend-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.report-friend-track {
+  flex: 1;
+  position: relative;
+  height: 52px;
+}
+
+/* Band blocks in report */
+.report-band-block {
+  position: absolute;
+  top: 6px;
+  height: calc(100% - 12px);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  transition: filter 0.12s;
+  min-width: 4px;
+}
+
+.report-band-block:hover { filter: brightness(1.3); z-index: 10; }
+
+.report-band-block span {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.report-band-block.is-meet {
+  box-shadow: 0 0 0 2px #2ecc71, 0 0 8px rgba(46,204,113,0.4);
+}
+
+/* Annotation layer (overlaid on all tracks) */
+.report-annotations {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.split-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(204,0,0,0.7) 0px,
+    rgba(204,0,0,0.7) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.free-window {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.025);
+  border-left: 1px dashed rgba(255,255,255,0.08);
+  border-right: 1px dashed rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.free-window-label {
+  font-size: 0.55rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  transform: rotate(-90deg);
+  writing-mode: vertical-rl;
+}
+
+/* Report legend */
+.report-legend {
+  display: flex;
+  gap: 16px;
+  padding: 10px 16px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  width: 16px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-meet { background: rgba(46,204,113,0.3); border: 2px solid #2ecc71; }
+.legend-split { background: repeating-linear-gradient(to right, rgba(204,0,0,0.7) 0,rgba(204,0,0,0.7) 3px,transparent 3px,transparent 7px); }
+.legend-free  { background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.15); }
+
+.report-no-picks {
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ============================================================
+   BAND DETAIL POPOVER
+   ============================================================ */
+
+.popover-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 500;
+  backdrop-filter: blur(2px);
+}
+
+.popover-backdrop.hidden,
+.popover.hidden { display: none; }
+
+.popover {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 510;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: min(440px, calc(100vw - 32px));
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  padding: 20px;
+}
+
+.popover-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.popover-stage-tag {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  padding: 2px 10px;
+  border-radius: 2px;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.popover-close {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: var(--radius);
+  transition: color 0.12s, background 0.12s;
+}
+
+.popover-close:hover { color: var(--text); background: var(--surface-3); }
+
+.popover-band-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.popover-time {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.popover-section { margin-bottom: 14px; }
+
+.popover-section-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.popover-friends {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.popover-friend-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 6px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  transition: opacity 0.12s;
+}
+
+.popover-friend-chip .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.popover-friend-chip.inactive { opacity: 0.3; }
+
+.popover-conflicts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.popover-conflict-item {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.popover-conflict-item .stage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.popover-conflict-item .friends-who {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+
+.sync-info {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+
+.hidden { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* ============================================================
+   MOBILE  (≤768px)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 48px;
+    --tabs-h: 40px;
+  }
+
+  .nav-logo { font-size: 1.1rem; }
+
+  .nav-links a { font-size: 0.9rem; padding: 4px 10px; }
+
+  .day-tab { font-size: 0.85rem; padding: 4px 10px; }
+
+  /* Schedule: horizontally scrollable, min column width for readability */
+  .stage-col { min-width: 120px; }
+  .stage-header { font-size: 0.9rem; }
+
+  /* Picks: single column */
+  .picks-grid { grid-template-columns: 1fr; }
+
+  /* Report: narrower labels */
+  .report-friend-label { min-width: 80px; font-size: 0.7rem; }
+
+  /* Popover full width on small screens */
+  .popover { width: calc(100vw - 24px); }
+}

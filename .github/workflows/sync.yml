@@ -1,0 +1,38 @@
+name: Sync Schedule from Google Sheet
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'   # every 30 minutes
+  workflow_dispatch:           # manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch sheet and regenerate data.js
+        run: node scripts/sync-sheet.js
+        env:
+          SHEET_ID:     ${{ secrets.SHEET_ID }}
+          GID_SCHEDULE: ${{ vars.GID_SCHEDULE }}   # optional, default 0
+          GID_PICKS:    ${{ vars.GID_PICKS }}       # optional, default 1
+
+      - name: Commit if data.js changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet js/data.js || \
+            (git add js/data.js && \
+             git commit -m "chore: sync schedule from Google Sheet [skip ci]" && \
+             git push)

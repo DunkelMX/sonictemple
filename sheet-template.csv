@@ -1,0 +1,12 @@
+SCHEDULE TAB — import this section as "Schedule" sheet
+Day,Stage,Band,Start,End
+Friday,Temple,Shinedown,9:20p,10:50p
+Friday,Temple,Sublime,8:11p,9:10p
+Saturday,Temple,Bring Me The Horizon,9:20p,10:50p
+Sunday,Temple,Tool,9:20p,10:50p
+
+PICKS TAB — import this section as "Picks" sheet
+Band,Day,Stage,Start,End,Friend1,Friend2,Friend3,Friend4,Friend5,Friend6,Friend7
+Shinedown,Friday,Temple,9:20p,10:50p,✅,,,,,,
+Bring Me The Horizon,Saturday,Temple,9:20p,10:50p,,✅,✅,,,,
+Tool,Sunday,Temple,9:20p,10:50p,✅,✅,✅,✅,✅,✅,✅

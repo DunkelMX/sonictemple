@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SonicTemple Planner — Group Picks</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="picks-page">
+
+  <nav>
+    <a class="nav-logo" href="index.html">Sonic Temple Planner</a>
+    <div class="nav-links">
+      <a href="index.html">Schedule</a>
+      <a href="picks.html" class="active">Picks</a>
+      <a href="report.html">Report</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Day tabs -->
+    <div class="day-tabs" id="dayTabs" role="tablist">
+      <button class="day-tab active" role="tab" data-day="all">All Days</button>
+      <button class="day-tab" role="tab" data-day="thursday">Thu · May 14</button>
+      <button class="day-tab" role="tab" data-day="friday">Fri · May 15</button>
+      <button class="day-tab" role="tab" data-day="saturday">Sat · May 16</button>
+      <button class="day-tab" role="tab" data-day="sunday">Sun · May 17</button>
+    </div>
+
+    <!-- Controls: group filter + "I am" + attending selector -->
+    <div class="picks-controls" id="picksControls">
+      <div class="filter-group" id="groupFilter" role="group" aria-label="Group filter">
+        <button class="filter-btn" data-filter="everyone">Everyone</button>
+        <button class="filter-btn active" data-filter="atleast2">At least 2</button>
+        <button class="filter-btn" data-filter="onlyme">Only me</button>
+      </div>
+
+      <div class="me-selector">
+        <label for="meSelect">I am:</label>
+        <select id="meSelect">
+          <option value="">— select —</option>
+        </select>
+      </div>
+
+      <details class="attending-selector" id="attendingSelector" style="position:relative">
+        <summary>Attending: all 7</summary>
+        <div class="attending-checkboxes" id="attendingCheckboxes"></div>
+      </details>
+    </div>
+
+    <!-- Results -->
+    <div id="picksResults"></div>
+  </main>
+
+  <footer>
+    <div class="sync-info" id="syncInfo"></div>
+  </footer>
+
+  <!-- Popover -->
+  <div id="popoverBackdrop" class="popover-backdrop hidden"></div>
+  <div id="popover" class="popover hidden" role="dialog" aria-modal="true"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/picks.js"></script>
+</body>
+</html>

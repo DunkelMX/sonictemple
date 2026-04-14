@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SonicTemple Planner — Schedule</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="schedule-page">
+
+  <nav>
+    <a class="nav-logo" href="index.html">Sonic Temple Planner</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Schedule</a>
+      <a href="picks.html">Picks</a>
+      <a href="report.html">Report</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="day-tabs" id="dayTabs" role="tablist">
+      <button class="day-tab" role="tab" data-day="thursday">Thu · May 14</button>
+      <button class="day-tab" role="tab" data-day="friday">Fri · May 15</button>
+      <button class="day-tab" role="tab" data-day="saturday">Sat · May 16</button>
+      <button class="day-tab active" role="tab" data-day="sunday">Sun · May 17</button>
+    </div>
+
+    <div id="scheduleContainer"></div>
+  </main>
+
+  <footer>
+    <div class="sync-info" id="syncInfo"></div>
+  </footer>
+
+  <!-- Popover -->
+  <div id="popoverBackdrop" class="popover-backdrop hidden"></div>
+  <div id="popover" class="popover hidden" role="dialog" aria-modal="true"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/schedule.js"></script>
+</body>
+</html>

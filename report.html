@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SonicTemple Planner — Conflict Report</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="report-page">
+
+  <nav>
+    <a class="nav-logo" href="index.html">Sonic Temple Planner</a>
+    <div class="nav-links">
+      <a href="index.html">Schedule</a>
+      <a href="picks.html">Picks</a>
+      <a href="report.html" class="active">Report</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Day tabs -->
+    <div class="day-tabs" id="dayTabs" role="tablist">
+      <button class="day-tab" role="tab" data-day="thursday">Thu · May 14</button>
+      <button class="day-tab" role="tab" data-day="friday">Fri · May 15</button>
+      <button class="day-tab" role="tab" data-day="saturday">Sat · May 16</button>
+      <button class="day-tab active" role="tab" data-day="sunday">Sun · May 17</button>
+    </div>
+
+    <!-- Controls: attending selector -->
+    <div class="picks-controls" id="reportControls">
+      <div class="report-legend">
+        <div class="legend-item">
+          <div class="legend-swatch legend-meet"></div>
+          <span>Meet — same band</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch legend-split"></div>
+          <span>Split — different stages at same time</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch legend-free"></div>
+          <span>Free window (≥15 min)</span>
+        </div>
+      </div>
+
+      <details class="attending-selector" id="attendingSelector" style="position:relative">
+        <summary>Attending: all 7</summary>
+        <div class="attending-checkboxes" id="attendingCheckboxes"></div>
+      </details>
+    </div>
+
+    <div id="reportContainer"></div>
+  </main>
+
+  <footer>
+    <div class="sync-info" id="syncInfo"></div>
+  </footer>
+
+  <!-- Popover -->
+  <div id="popoverBackdrop" class="popover-backdrop hidden"></div>
+  <div id="popover" class="popover hidden" role="dialog" aria-modal="true"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/report.js"></script>
+</body>
+</html>
