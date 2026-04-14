@@ -258,9 +258,9 @@ const GENERATED_AT = ${JSON.stringify(now)};
 const SHEET_SOURCE  = ${JSON.stringify(sheetUrl)};
 
 const FRIENDS = [
-  { id: 'friend1', name: 'Friend1', color: '#e74c3c' },
-  { id: 'friend2', name: 'Friend2', color: '#3498db' },
-  { id: 'friend3', name: 'Friend3', color: '#2ecc71' },
+  { id: 'friend1', name: 'DK',   color: '#e74c3c' },
+  { id: 'friend2', name: 'MG',   color: '#3498db' },
+  { id: 'friend3', name: 'Abel', color: '#2ecc71' },
   { id: 'friend4', name: 'Friend4', color: '#f39c12' },
   { id: 'friend5', name: 'Friend5', color: '#9b59b6' },
   { id: 'friend6', name: 'Friend6', color: '#1abc9c' },

@@ -8,9 +8,9 @@ const GENERATED_AT = "2026-04-14T18:37:39.682Z";
 const SHEET_SOURCE  = "https://docs.google.com/spreadsheets/d/1_mlpVRSg7sCzwaba81_7cEW-iUskwLL5x8Ak8rUnWRI";
 
 const FRIENDS = [
-  { id: 'friend1', name: 'Friend1', color: '#e74c3c' },
-  { id: 'friend2', name: 'Friend2', color: '#3498db' },
-  { id: 'friend3', name: 'Friend3', color: '#2ecc71' },
+  { id: 'friend1', name: 'DK',   color: '#e74c3c' },
+  { id: 'friend2', name: 'MG',   color: '#3498db' },
+  { id: 'friend3', name: 'Abel', color: '#2ecc71' },
   { id: 'friend4', name: 'Friend4', color: '#f39c12' },
   { id: 'friend5', name: 'Friend5', color: '#9b59b6' },
   { id: 'friend6', name: 'Friend6', color: '#1abc9c' },
