@@ -1,134 +1,146 @@
 Day,Stage,Band,Start,End
-Thursday,Temple,My Chemical Romance,9:20p,10:50p
-Thursday,Temple,Breaking Benjamin,8:15p,9:10p
-Thursday,Temple,Pierce The Veil,7:40p,8:40p
-Thursday,Temple,All Time Low,5:15p,6:00p
-Thursday,Cathedral,Whitechapel,7:25p,8:20p
-Thursday,Cathedral,Rise Against,5:30p,6:25p
-Thursday,Cathedral,The Used,4:20p,5:15p
-Thursday,Citadel,Slaughter To Prevail,9:10p,10:10p
-Thursday,Citadel,Thy Art Is Murder,5:00p,5:45p
-Thursday,Citadel,Attila,4:00p,4:45p
-Thursday,Citadel,Bodysnatcher,2:30p,3:15p
-Thursday,Citadel,Fozzy,1:40p,2:15p
-Thursday,Citadel,Egypt Central,12:25p,1:00p
-Thursday,Citadel,Windwaker,12:00p,12:35p
-Thursday,Sanctuary,Dayseeker,8:15p,9:10p
-Thursday,Sanctuary,Magnolia Park,6:00p,6:50p
-Thursday,Sanctuary,Catch Your Breath,5:20p,5:55p
-Thursday,Sanctuary,Holding Absence,4:40p,5:15p
-Thursday,Sanctuary,Wind Walkers,2:35p,3:20p
-Thursday,Sanctuary,Nerv,1:40p,2:15p
-Thursday,Sanctuary,Disembodied Tyrant,1:10p,1:45p
-Thursday,Sanctuary,The Pretty Wild,12:25p,1:00p
-Thursday,Altar,Behemoth,9:15p,10:15p
-Thursday,Altar,Cradle Of Filth,8:15p,9:05p
-Thursday,Altar,Dying Fetus,7:00p,7:50p
-Thursday,Altar,Cattle Decapitation,5:15p,6:05p
-Thursday,Altar,Napalm Death,3:40p,4:30p
-Thursday,Altar,Fleshgod Apocalypse,2:35p,3:20p
-Thursday,Altar,Suffocation,1:15p,1:55p
-Thursday,Altar,Nekrogoblikon,12:40p,1:25p
-Friday,Temple,Shinedown,9:30p,10:50p
-Friday,Temple,Sublime,8:15p,9:10p
-Friday,Temple,Staind,7:10p,8:10p
-Friday,Temple,Halestorm,5:25p,6:20p
-Friday,Temple,Yellowcard,4:15p,5:05p
-Friday,Temple,Stone Temple Pilots,3:00p,3:50p
-Friday,Temple,Daughtry,2:30p,3:00p
-Friday,Temple,Hinder,1:10p,1:45p
-Friday,Temple,Buckcherry,12:30p,1:05p
-Friday,Cathedral,Simple Plan,10:05p,10:55p
-Friday,Cathedral,Story of the Year,8:25p,9:10p
-Friday,Cathedral,Atreyu,6:35p,7:20p
-Friday,Cathedral,Blessthefall,5:15p,6:05p
-Friday,Cathedral,The Word Alive,4:30p,5:15p
-Friday,Cathedral,Woe Is Me,3:50p,4:25p
-Friday,Cathedral,New Found Glory,2:45p,3:30p
-Friday,Cathedral,Everclear,1:45p,2:25p
-Friday,Cathedral,Lit,12:10p,1:00p
-Friday,Citadel,Chevelle,6:15p,7:10p
-Friday,Citadel,Chelsea Grin,5:05p,5:50p
-Friday,Citadel,Brand of Sacrifice,3:50p,4:30p
-Friday,Citadel,Sons of the Swarm,2:45p,3:25p
-Friday,Citadel,Mushroomhead,1:15p,1:55p
-Friday,Citadel,Soil,12:10p,12:50p
-Friday,Sanctuary,Lorna Shore,9:10p,10:05p
-Friday,Sanctuary,Kublai Khan TX,7:30p,8:20p
-Friday,Sanctuary,Sevendust,6:15p,7:05p
-Friday,Sanctuary,Paleface Swiss,5:15p,5:50p
-Friday,Sanctuary,Static-X,3:25p,4:05p
-Friday,Sanctuary,Powerman 5000,1:35p,2:10p
-Friday,Sanctuary,Flaw,12:00p,12:35p
-Friday,Altar,Zakk Sabbath,10:00p,10:50p
-Friday,Altar,Dope,3:50p,4:25p
-Saturday,Temple,Bring Me The Horizon,9:30p,10:50p
-Saturday,Temple,Marilyn Manson,8:15p,9:10p
-Saturday,Temple,Good Charlotte,7:10p,8:10p
-Saturday,Temple,Motionless In White,6:30p,7:25p
-Saturday,Temple,Alter Bridge,5:30p,6:25p
-Saturday,Temple,Black Veil Brides,4:15p,5:05p
-Saturday,Temple,The Plot In You,3:25p,4:05p
-Saturday,Temple,Palaye Royale,2:05p,2:50p
-Saturday,Temple,Amira Elfeky,12:05p,12:55p
-Saturday,Cathedral,The Story So Far,9:25p,10:25p
-Saturday,Cathedral,Mayday Parade,7:45p,8:30p
-Saturday,Cathedral,Bush,6:15p,7:05p
-Saturday,Cathedral,Motion City Soundtrack,5:10p,6:00p
-Saturday,Cathedral,August Burns Red,4:15p,5:05p
-Saturday,Cathedral,Pop Evil,3:25p,4:05p
-Saturday,Cathedral,All That Remains,2:40p,3:20p
-Saturday,Cathedral,Allt,12:50p,1:30p
-Saturday,Citadel,Architects,8:35p,9:20p
-Saturday,Citadel,The Amity Affliction,7:30p,8:15p
-Saturday,Citadel,The Wonder Years,5:00p,5:45p
-Saturday,Citadel,State Champs,4:10p,4:55p
-Saturday,Citadel,Coal Chamber,3:00p,3:45p
-Saturday,Citadel,Citizen,2:30p,3:10p
-Saturday,Citadel,Knuckle Puck,1:30p,2:10p
-Saturday,Sanctuary,The Ghost Inside,4:10p,4:55p
-Saturday,Sanctuary,Make Them Suffer,3:15p,3:55p
-Saturday,Sanctuary,Alpha Wolf,2:30p,3:10p
-Saturday,Altar,Body Count,10:10p,11:00p
-Saturday,Altar,Sepultura,8:35p,9:20p
-Saturday,Altar,Kreator,7:30p,8:10p
-Saturday,Altar,Carcass,5:30p,6:10p
-Saturday,Altar,Biohazard,2:30p,3:10p
-Saturday,Altar,Shot,1:45p,2:20p
-Saturday,Altar,CKY,1:10p,1:55p
-Saturday,Altar,Butcher Babies,12:10p,12:50p
-Sunday,Temple,Tool,9:25p,10:50p
-Sunday,Temple,Godsmack,7:10p,8:10p
-Sunday,Temple,Public Enemy,6:20p,7:05p
-Sunday,Temple,Lamb of God,5:25p,6:15p
-Sunday,Temple,Black Label Society,4:25p,5:15p
-Sunday,Temple,Avatar,2:50p,3:30p
-Sunday,Temple,P.O.D.,1:55p,2:35p
-Sunday,Temple,Saliva,12:30p,1:05p
-Sunday,Cathedral,Megadeth,8:20p,9:20p
-Sunday,Cathedral,We Came As Romans,7:35p,8:10p
-Sunday,Cathedral,Electric Callboy,6:05p,6:55p
-Sunday,Cathedral,Polaris,5:10p,5:55p
-Sunday,Cathedral,Amon Amarth,4:40p,5:30p
-Sunday,Cathedral,Thrown,3:05p,3:45p
-Sunday,Cathedral,Suicidal Tendencies,2:05p,2:45p
-Sunday,Cathedral,In Flames,1:45p,2:15p
-Sunday,Cathedral,Demon Hunter,12:35p,1:25p
-Sunday,Citadel,Dance Gavin Dance,10:00p,10:50p
-Sunday,Citadel,Chiodos,8:20p,9:00p
-Sunday,Citadel,Bloodywood,5:35p,6:05p
-Sunday,Citadel,Anberlin,4:25p,5:05p
-Sunday,Citadel,From First To Last,3:15p,3:45p
-Sunday,Citadel,Drop Dead Gorgeous,2:20p,2:50p
-Sunday,Citadel,Conquer Divide,1:30p,2:00p
-Sunday,Citadel,A Skylit Drive,12:55p,1:25p
-Sunday,Sanctuary,Dance Gavin Dance,10:00p,10:50p
-Sunday,Sanctuary,Dragonforce,9:15p,9:50p
-Sunday,Sanctuary,Apocalyptica,7:35p,8:10p
-Sunday,Sanctuary,Thrice,6:35p,7:30p
-Sunday,Sanctuary,Devildriver,5:40p,6:20p
-Sunday,Sanctuary,Alestorm,3:25p,4:05p
-Sunday,Sanctuary,Wind Rose,2:30p,3:00p
-Sunday,Sanctuary,Spiritworld,1:10p,1:48p
-Sunday,Sanctuary,Castle Rat,12:00p,12:30p
-Sunday,Altar,Dethklok,10:10p,10:50p
+Thursday,Temple,My Chemical Romance,21:20,22:50
+Thursday,Temple,Pierce The Veil,19:00,20:05
+Thursday,Temple,All Time Low,17:15,18:00
+Thursday,Temple,Coheed and Cambria,15:40,16:25
+Thursday,Temple,L.S. Dunes,14:20,14:50
+Thursday,Temple,Hawthorne Heights,13:10,13:40
+Thursday,Temple,Red Jumpsuit Apparatus,12:00,12:30
+Thursday,Cathedral,Breaking Benjamin,20:10,21:15
+Thursday,Cathedral,Rise Against,18:05,18:55
+Thursday,Cathedral,The Used,16:30,17:10
+Thursday,Cathedral,Flyleaf w/ Lacey Sturm,14:55,15:35
+Thursday,Cathedral,Fozzy,13:45,14:15
+Thursday,Cathedral,Egypt Central,12:35,13:05
+Thursday,Citadel,Slaughter to Prevail,21:10,22:10
+Thursday,Citadel,Whitechapel,19:25,20:10
+Thursday,Citadel,Thy Art Is Murder,18:00,18:35
+Thursday,Citadel,Attila,16:40,17:15
+Thursday,Citadel,Bodysnatcher,15:30,16:00
+Thursday,Citadel,Carnifex,14:20,14:50
+Thursday,Citadel,Disembodied Tyrant,13:10,13:40
+Thursday,Citadel,Windwaker,12:00,12:30
+Thursday,Sanctuary,Dayseeker,20:15,21:05
+Thursday,Sanctuary,Magnolia Park,18:40,19:20
+Thursday,Sanctuary,Catch Your Breath,17:20,17:55
+Thursday,Sanctuary,Holding Absence,16:05,16:35
+Thursday,Sanctuary,Wind Walkers,14:55,15:25
+Thursday,Sanctuary,Nerv,13:45,14:15
+Thursday,Sanctuary,The Pretty Wild,12:35,13:05
+Thursday,Altar,Behemoth,22:10,22:55
+Thursday,Altar,Cradle of Filth,21:15,21:50
+Thursday,Altar,Dying Fetus,19:00,19:30
+Thursday,Altar,Cattle Decapitation,17:15,17:45
+Thursday,Altar,Napalm Death,16:00,16:30
+Thursday,Altar,Fleshgod Apocalypse,14:25,14:55
+Thursday,Altar,Suffocation,13:15,13:45
+Thursday,Altar,Nekrogoblikon,12:05,12:35
+Friday,Temple,Shinedown,21:20,22:50
+Friday,Temple,Staind,19:10,20:10
+Friday,Temple,Halestorm,17:25,18:10
+Friday,Temple,Stone Temple Pilots,15:45,16:30
+Friday,Temple,Daughtry,14:20,15:00
+Friday,Temple,Hinder,13:10,13:40
+Friday,Temple,Buckcherry,12:00,12:30
+Friday,Cathedral,Sublime,20:15,21:15
+Friday,Cathedral,Chevelle,18:15,19:05
+Friday,Cathedral,Yellowcard,16:35,17:20
+Friday,Cathedral,New Found Glory,15:05,15:40
+Friday,Cathedral,Everclear,13:45,14:15
+Friday,Cathedral,Lit,12:35,13:05
+Friday,Citadel,Simple Plan,22:05,22:50
+Friday,Citadel,Story of the Year,20:25,21:10
+Friday,Citadel,Atreyu,18:55,19:35
+Friday,Citadel,Blessthefall,17:40,18:10
+Friday,Citadel,The Word Alive,16:30,17:00
+Friday,Citadel,Wage War,15:20,15:50
+Friday,Citadel,Left on Red,14:10,14:40
+Friday,Citadel,As You Were,13:00,13:30
+Friday,Sanctuary,Lorna Shore,21:15,22:00
+Friday,Sanctuary,Kublai Khan TX,19:40,20:20
+Friday,Sanctuary,Paleface Swiss,18:15,18:50
+Friday,Sanctuary,Chelsea Grin,17:05,17:35
+Friday,Sanctuary,Brand of Sacrifice,15:55,16:25
+Friday,Sanctuary,Signs of the Swarm,14:45,15:15
+Friday,Sanctuary,Jiluka,13:35,14:05
+Friday,Sanctuary,Not Enough Space,12:25,12:55
+Friday,Altar,Zakk Sabbath,22:00,22:50
+Friday,Altar,Sevendust,19:30,20:15
+Friday,Altar,Static-X,17:25,18:10
+Friday,Altar,Dope,15:50,16:30
+Friday,Altar,Powerman 5000,14:25,15:00
+Friday,Altar,Mushroomhead,13:10,13:40
+Friday,Altar,Soil,12:10,12:35
+Friday,Altar,Flaw,11:30,11:55
+Saturday,Temple,Bring Me The Horizon,21:20,22:50
+Saturday,Temple,Good Charlotte,19:10,20:10
+Saturday,Temple,Motionless in White,17:20,18:10
+Saturday,Temple,Black Veil Brides,15:45,16:25
+Saturday,Temple,The Plot in You,14:25,15:00
+Saturday,Temple,Palaye Royale,13:15,13:45
+Saturday,Temple,Amira Elfeky,12:05,12:35
+Saturday,Cathedral,Marilyn Manson,20:15,21:15
+Saturday,Cathedral,Bush,18:15,19:05
+Saturday,Cathedral,Alter Bridge,16:30,17:15
+Saturday,Cathedral,Coal Chamber,15:05,15:40
+Saturday,Cathedral,Pop Evil,13:50,14:20
+Saturday,Cathedral,All That Remains,12:40,13:10
+Saturday,Citadel,The Story So Far,21:25,22:10
+Saturday,Citadel,Mayday Parade,19:45,20:30
+Saturday,Citadel,Motion City Soundtrack,18:15,18:55
+Saturday,Citadel,The Wonder Years,16:50,17:25
+Saturday,Citadel,State Champs,15:35,16:10
+Saturday,Citadel,Citizen,14:30,15:00
+Saturday,Citadel,Knuckle Puck,13:20,13:50
+Saturday,Citadel,Allt,12:10,12:40
+Saturday,Sanctuary,Architects,20:35,21:20
+Saturday,Sanctuary,The Amity Affliction,19:00,19:40
+Saturday,Sanctuary,August Burns Red,17:30,18:10
+Saturday,Sanctuary,The Ghost Inside,16:10,16:45
+Saturday,Sanctuary,Make Them Suffer,15:05,15:35
+Saturday,Sanctuary,Alpha Wolf,13:55,14:25
+Saturday,Sanctuary,Novelists,12:45,13:15
+Saturday,Altar,Body Count,22:10,22:55
+Saturday,Altar,Sepultura,21:15,21:50
+Saturday,Altar,Kreator,19:35,20:10
+Saturday,Altar,Carcass,17:35,18:10
+Saturday,Altar,Biohazard,15:50,16:25
+Saturday,Altar,Snot,14:25,15:00
+Saturday,Altar,CKY,13:15,13:45
+Saturday,Altar,Butcher Babies,12:05,12:35
+Sunday,Temple,Tool,21:20,22:50
+Sunday,Temple,Godsmack,19:10,20:10
+Sunday,Temple,Lamb of God,17:25,18:15
+Sunday,Temple,Black Label Society,15:50,16:35
+Sunday,Temple,Avatar,14:20,15:00
+Sunday,Temple,P.O.D.,13:10,13:40
+Sunday,Temple,Saliva,12:00,12:30
+Sunday,Cathedral,Megadeth,20:15,21:15
+Sunday,Cathedral,Public Enemy,18:20,19:05
+Sunday,Cathedral,Amon Amarth,16:40,17:20
+Sunday,Cathedral,Suicidal Tendencies,15:05,15:45
+Sunday,Cathedral,In Flames,13:45,14:15
+Sunday,Cathedral,Demon Hunter,12:35,13:05
+Sunday,Citadel,Electric Callboy,21:05,21:55
+Sunday,Citadel,We Came As Romans,19:35,20:15
+Sunday,Citadel,Polaris,18:10,18:50
+Sunday,Citadel,Senses Fail,17:00,17:30
+Sunday,Citadel,Thrown,15:50,16:20
+Sunday,Citadel,Thornhill,14:40,15:10
+Sunday,Citadel,Conquer Divide,13:30,14:00
+Sunday,Sanctuary,Dance Gavin Dance,22:00,22:50
+Sunday,Sanctuary,Chiodos,20:20,21:00
+Sunday,Sanctuary,Thrice,18:55,19:30
+Sunday,Sanctuary,Bloodywood,17:35,18:05
+Sunday,Sanctuary,Anberlin,16:25,16:55
+Sunday,Sanctuary,From First to Last,15:15,15:45
+Sunday,Sanctuary,Drop Dead Gorgeous,14:05,14:35
+Sunday,Sanctuary,A Skylit Drive,12:55,13:25
+Sunday,Altar,Dethklok,22:10,22:55
+Sunday,Altar,DragonForce,21:15,21:50
+Sunday,Altar,Apocalyptica,19:35,20:15
+Sunday,Altar,DevilDriver,17:40,18:20
+Sunday,Altar,Alestorm,15:55,16:35
+Sunday,Altar,Wind Rose,14:20,15:00
+Sunday,Altar,SpiritWorld,13:10,13:40
+Sunday,Altar,Castle Rat,12:00,12:30

@@ -53,7 +53,7 @@ function renderPicks() {
   let html = '';
 
   DAYS.forEach(day => {
-    const dayBands = grouped[day.id];
+    const dayBands = grouped[day.id].sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
     if (dayBands.length === 0) return;
 
     html += `<div class="day-section">

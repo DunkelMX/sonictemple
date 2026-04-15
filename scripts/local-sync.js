@@ -1,0 +1,210 @@
+#!/usr/bin/env node
+// =============================================================
+// SonicTemple Planner — scripts/local-sync.js
+//
+// Reads local sheet-schedule.csv + sheet-picks.csv and
+// regenerates js/data.js without needing Google Sheets.
+//
+// Usage:
+//   node scripts/local-sync.js
+// =============================================================
+
+'use strict';
+
+const fs   = require('fs');
+const path = require('path');
+
+const ROOT          = path.join(__dirname, '..');
+const SCHEDULE_CSV  = path.join(ROOT, 'sheet-schedule.csv');
+const PICKS_CSV     = path.join(ROOT, 'sheet-picks.csv');
+const OUT_PATH      = path.join(ROOT, 'js', 'data.js');
+const SHEET_URL     = 'https://docs.google.com/spreadsheets/d/1_mlpVRSg7sCzwaba81_7cEW-iUskwLL5x8Ak8rUnWRI';
+
+const FRIEND_IDS = ['friend1','friend2','friend3','friend4','friend5','friend6','friend7'];
+
+// ── CSV parser ────────────────────────────────────────────────
+
+function parseCsv(text) {
+  const rows = [];
+  const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+  for (const line of lines) {
+    if (line.trim() === '') continue;
+    rows.push(parseCsvRow(line));
+  }
+  return rows;
+}
+
+function parseCsvRow(line) {
+  const fields = [];
+  let cur = '';
+  let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') {
+      if (inQ && line[i+1] === '"') { cur += '"'; i++; }
+      else inQ = !inQ;
+    } else if (c === ',' && !inQ) {
+      fields.push(cur.trim());
+      cur = '';
+    } else {
+      cur += c;
+    }
+  }
+  fields.push(cur.trim());
+  return fields;
+}
+
+// ── Time normalizer ───────────────────────────────────────────
+
+function normalizeTime(raw) {
+  raw = raw.trim().toLowerCase();
+  if (/^\d{1,2}:\d{2}$/.test(raw)) {
+    const [h, m] = raw.split(':').map(Number);
+    if (h > 23 || m > 59) return null;
+    return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+  }
+  const match = raw.match(/^(\d{1,2}):(\d{2})\s*(a|p|am|pm)$/);
+  if (match) {
+    let h = parseInt(match[1], 10);
+    const m = parseInt(match[2], 10);
+    const period = match[3][0];
+    if (period === 'p' && h !== 12) h += 12;
+    if (period === 'a' && h === 12) h = 0;
+    if (h > 23 || m > 59) return null;
+    return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+  }
+  return null;
+}
+
+function normalizeDayId(raw) {
+  const lower = raw.toLowerCase();
+  if (lower.includes('thu')) return 'thursday';
+  if (lower.includes('fri')) return 'friday';
+  if (lower.includes('sat')) return 'saturday';
+  if (lower.includes('sun')) return 'sunday';
+  return lower.replace(/\s+/g, '');
+}
+
+function normalizeStageId(raw) {
+  return raw.toLowerCase().replace(/\s+/g, '');
+}
+
+function makeKey(band, day, stage) {
+  return `${band.toLowerCase()}|${day}|${stage}`;
+}
+
+// ── Parsers ───────────────────────────────────────────────────
+
+function parseScheduleCsv(csv) {
+  const rows = parseCsv(csv);
+  if (rows.length < 2) return [];
+  const entries = [];
+  for (let i = 1; i < rows.length; i++) {
+    const [day, stage, band, start, end] = rows[i];
+    if (!band || !day || !stage || !start || !end) continue;
+    const startH = normalizeTime(start);
+    const endH   = normalizeTime(end);
+    if (!startH || !endH) {
+      console.warn(`[local-sync] Skipping row ${i+1}: invalid time "${start}" / "${end}"`);
+      continue;
+    }
+    entries.push({
+      band:  band.trim(),
+      day:   normalizeDayId(day.trim()),
+      stage: normalizeStageId(stage.trim()),
+      start: startH,
+      end:   endH,
+      picks: [],
+    });
+  }
+  return entries;
+}
+
+function parsePicksCsv(csv) {
+  const rows = parseCsv(csv);
+  if (rows.length < 2) return {};
+  const picks = {};
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i];
+    const [band, day, stage] = row;
+    if (!band) continue;
+    const key = makeKey(band.trim(), normalizeDayId(day.trim()), normalizeStageId(stage.trim()));
+    const picked = [];
+    for (let fi = 0; fi < FRIEND_IDS.length; fi++) {
+      const val = (row[5 + fi] || '').trim();
+      if (val === '✅' || val.toLowerCase() === 'x' || val === '1' || val.toLowerCase() === 'yes') {
+        picked.push(FRIEND_IDS[fi]);
+      }
+    }
+    if (picked.length > 0) picks[key] = picked;
+  }
+  return picks;
+}
+
+// ── Write data.js ─────────────────────────────────────────────
+
+function writeDataJs(schedule) {
+  const now = new Date().toISOString();
+  const scheduleJson = schedule.map(e => {
+    return `  { band: ${JSON.stringify(e.band)}, day: ${JSON.stringify(e.day)}, stage: ${JSON.stringify(e.stage)}, start: ${JSON.stringify(e.start)}, end: ${JSON.stringify(e.end)}, picks: ${JSON.stringify(e.picks)} },`;
+  }).join('\n');
+
+  const content = `// =============================================================
+// SonicTemple Planner — js/data.js
+// AUTO-GENERATED by scripts/local-sync.js
+// Last synced: ${now}
+// =============================================================
+
+const GENERATED_AT = ${JSON.stringify(now)};
+const SHEET_SOURCE  = ${JSON.stringify(SHEET_URL)};
+
+const FRIENDS = [
+  { id: 'friend1', name: 'DK',   color: '#e74c3c' },
+  { id: 'friend2', name: 'MG',   color: '#3498db' },
+  { id: 'friend3', name: 'Abel', color: '#2ecc71' },
+  { id: 'friend4', name: 'Friend4', color: '#f39c12' },
+  { id: 'friend5', name: 'Friend5', color: '#9b59b6' },
+  { id: 'friend6', name: 'Friend6', color: '#1abc9c' },
+  { id: 'friend7', name: 'Friend7', color: '#e91e63' },
+];
+
+const STAGES = [
+  { id: 'temple',    name: 'Temple',    color: '#cc0000' },
+  { id: 'cathedral', name: 'Cathedral', color: '#1a6b3c' },
+  { id: 'citadel',   name: 'Citadel',   color: '#1a3a6b' },
+  { id: 'sanctuary', name: 'Sanctuary', color: '#6b1a6b' },
+  { id: 'altar',     name: 'Altar',     color: '#8b5e3c' },
+];
+
+const DAYS = [
+  { id: 'thursday', label: 'Thu · May 14', date: '2026-05-14' },
+  { id: 'friday',   label: 'Fri · May 15', date: '2026-05-15' },
+  { id: 'saturday', label: 'Sat · May 16', date: '2026-05-16' },
+  { id: 'sunday',   label: 'Sun · May 17', date: '2026-05-17' },
+];
+
+const SCHEDULE = [
+${scheduleJson}
+];
+`;
+  fs.writeFileSync(OUT_PATH, content, 'utf8');
+}
+
+// ── Main ──────────────────────────────────────────────────────
+
+const scheduleCsv = fs.readFileSync(SCHEDULE_CSV, 'utf8');
+const picksCsv    = fs.readFileSync(PICKS_CSV, 'utf8');
+
+const schedule = parseScheduleCsv(scheduleCsv);
+const picks    = parsePicksCsv(picksCsv);
+
+schedule.forEach(entry => {
+  const key = makeKey(entry.band, entry.day, entry.stage);
+  entry.picks = picks[key] || [];
+});
+
+const pickedCount = schedule.filter(e => e.picks.length > 0).length;
+console.log(`[local-sync] ${schedule.length} bands, ${pickedCount} with at least one pick`);
+
+writeDataJs(schedule);
+console.log(`[local-sync] Written to ${OUT_PATH}`);
