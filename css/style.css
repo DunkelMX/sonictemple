@@ -483,43 +483,48 @@ nav {
    REPORT PAGE
    ============================================================ */
 
-.report-page main { padding: 0; overflow-x: hidden; }
+.report-page main { padding: 0; }
 
 .report-scroll {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  max-height: calc(100vh - var(--nav-h) - var(--tabs-h) - 64px);
 }
 
 .report-inner {
   position: relative;
 }
 
-.report-ruler {
-  position: sticky;
-  top: 0;
-  z-index: 20;
+/* Ruler lives outside .report-scroll — no sticky degradation issues.
+   top is set inline by JS after measuring picks-controls height. */
+.report-ruler-outer {
   display: flex;
   align-items: center;
   height: 32px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
+  position: sticky;
+  z-index: 20;
+  flex-shrink: 0;
 }
 
 .report-ruler-corner {
   flex-shrink: 0;
-  width: 110px;
+  width: 110px;           /* = LABEL_W in report.js */
   height: 100%;
-  position: sticky;
-  left: 0;
-  z-index: 25;
   background: var(--bg);
   border-right: 1px solid var(--border);
 }
 
+.report-ruler-scroll {
+  flex: 1;
+  overflow: hidden;       /* scrollLeft driven by JS */
+  position: relative;
+  height: 100%;
+}
+
 .report-ruler-ticks {
   position: relative;
-  flex-shrink: 0;
+  height: 100%;
 }
 
 .ruler-label {
@@ -875,8 +880,20 @@ footer {
   /* Picks: single column */
   .picks-grid { grid-template-columns: 1fr; }
 
-  /* Report: narrower labels */
-  .report-friend-label { min-width: 80px; font-size: 0.7rem; }
+  /* Picks/Report controls: stack vertically on mobile */
+  .picks-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 8px 12px 6px;
+  }
+  .attending-selector { margin-left: 0; }
+
+  /* Larger tap targets for filter buttons */
+  .filter-btn { min-height: 36px; }
+
+  /* Compact report legend */
+  .report-legend { padding: 6px 12px; }
 
   /* Popover full width on small screens */
   .popover { width: calc(100vw - 24px); }

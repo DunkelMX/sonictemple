@@ -107,19 +107,22 @@ function renderReport(dayId) {
 
   // ── Build HTML ─────────────────────────────────────────────
 
-  let html = `<div class="report-scroll">
-    <div class="report-inner" style="min-width:${totalW + 20}px">`;
-
-  // Time ruler — corner freezes at left:0, ticks scroll horizontally with content
-  html += `<div class="report-ruler">`;
+  // Time ruler — lives OUTSIDE report-scroll so sticky works relative to page.
+  // Horizontal scroll is synced via JS after render.
+  let html = `<div class="report-ruler-outer">`;
   html += `<div class="report-ruler-corner"></div>`;
+  html += `<div class="report-ruler-scroll">`;
   html += `<div class="report-ruler-ticks" style="width:${trackW}px">`;
   for (let t = dayStart; t <= dayEnd; t += 30) {
     const left = (t - dayStart) * PX_PER_MIN_REPORT;
     html += `<span class="ruler-label" style="left:${left}px">${formatTime(minutesToHHMM(t))}</span>`;
     html += `<span class="ruler-tick"  style="left:${left}px"></span>`;
   }
-  html += `</div></div>`;
+  html += `</div></div></div>`;
+
+  // Scrollable tracks area
+  html += `<div class="report-scroll">`;
+  html += `<div class="report-inner" style="min-width:${totalW + 20}px">`;
 
   // Tracks area
   html += `<div class="report-tracks-outer" style="position:relative">`;
@@ -185,9 +188,24 @@ function renderReport(dayId) {
   });
 
   html += `</div>`; // tracks-outer
-  html += `</div></div>`; // inner + scroll
+  html += `</div></div>`; // report-inner + report-scroll
 
   container.innerHTML = html;
+
+  // Sync ruler horizontal scroll with track scroll
+  const scrollEl      = container.querySelector('.report-scroll');
+  const rulerScrollEl = container.querySelector('.report-ruler-scroll');
+  if (scrollEl && rulerScrollEl) {
+    scrollEl.addEventListener('scroll', () => {
+      rulerScrollEl.scrollLeft = scrollEl.scrollLeft;
+    }, { passive: true });
+  }
+
+  // Pin ruler sticky below controls bar (measure at render time)
+  const controlsEl = document.getElementById('reportControls');
+  const controlsH  = controlsEl ? controlsEl.offsetHeight : 52;
+  const rulerEl    = container.querySelector('.report-ruler-outer');
+  if (rulerEl) rulerEl.style.top = `calc(var(--nav-h) + var(--tabs-h) + ${controlsH}px)`;
 
   // Click handlers on band blocks
   container.querySelectorAll('.report-band-block').forEach(block => {
