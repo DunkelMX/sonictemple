@@ -5,20 +5,25 @@
 // Depends on: data.js, utils.js
 // =============================================================
 
-const LABEL_W   = 110;  // px — friend label column width
-const LANE_H    = 40;   // px — block height per lane (matches original single-row block height)
-const LANE_GAP  = 4;    // px — gap between lanes
-const ROW_PAD   = 12;   // px — total vertical padding (6px top + 6px bottom)
+const LABEL_W        = 110;  // px — friend label column width
 const PX_PER_MIN_REPORT = 3.5;
-const FREE_THRESHOLD = 15; // minutes — minimum gap to show as "free window"
+const FREE_THRESHOLD = 15;   // minutes — minimum gap to show as "free window"
+
+// Single-lane constants (match original design exactly)
+const BLOCK_H_SINGLE = 40;
+const ROW_H_SINGLE   = 52;   // = BLOCK_H_SINGLE + 6 top + 6 bottom
+const BLOCK_TOP_SINGLE = 6;
+
+// Multi-lane constants (compact to keep rows manageable)
+const BLOCK_H_MULTI  = 24;
+const LANE_GAP       = 4;
+const ROW_PAD_MULTI  = 8;    // 4px top + 4px bottom
 
 // ── Lane packing ──────────────────────────────────────────────
-// Assigns non-overlapping picks to vertical lanes within a row.
-// Returns { laneCount, laneOf: Map<band, laneIndex> }
 
 function assignLanes(picks) {
   const sorted = [...picks].sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
-  const laneEnds = []; // laneEnds[i] = end minute of last band placed in lane i
+  const laneEnds = [];
   const laneOf   = new Map();
 
   for (const band of sorted) {
@@ -42,7 +47,17 @@ function assignLanes(picks) {
 }
 
 function rowHeight(laneCount) {
-  return laneCount * LANE_H + (laneCount - 1) * LANE_GAP + ROW_PAD;
+  if (laneCount === 1) return ROW_H_SINGLE;
+  return laneCount * BLOCK_H_MULTI + (laneCount - 1) * LANE_GAP + ROW_PAD_MULTI;
+}
+
+function blockTop(lane, laneCount) {
+  if (laneCount === 1) return BLOCK_TOP_SINGLE;
+  return ROW_PAD_MULTI / 2 + lane * (BLOCK_H_MULTI + LANE_GAP);
+}
+
+function blockHeight(laneCount) {
+  return laneCount === 1 ? BLOCK_H_SINGLE : BLOCK_H_MULTI;
 }
 
 // ── State ─────────────────────────────────────────────────────
@@ -151,11 +166,12 @@ function renderReport(dayId) {
       const isMeet = meets.some(m => m.band === band);
       const color  = stage?.color || '#555';
       const lane   = laneOf.get(band) ?? 0;
-      const top    = ROW_PAD / 2 + lane * (LANE_H + LANE_GAP);
+      const top    = blockTop(lane, laneCount);
+      const bh     = blockHeight(laneCount);
 
       html += `
         <div class="report-band-block${isMeet ? ' is-meet' : ''}"
-             style="left:${left}px; width:${width}px; height:${LANE_H}px; top:${top}px; background:${color}"
+             style="left:${left}px; width:${width}px; height:${bh}px; top:${top}px; background:${color}"
              data-idx="${idx}"
              role="button" tabindex="0"
              title="${band.band} · ${formatTimeRange(band.start, band.end)}">
