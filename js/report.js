@@ -6,9 +6,9 @@
 // =============================================================
 
 const LABEL_W   = 110;  // px — friend label column width
-const LANE_H    = 24;   // px — height of each lane within a row
+const LANE_H    = 40;   // px — block height per lane (matches original single-row block height)
 const LANE_GAP  = 4;    // px — gap between lanes
-const ROW_PAD   = 8;    // px — vertical padding inside each row
+const ROW_PAD   = 12;   // px — total vertical padding (6px top + 6px bottom)
 const PX_PER_MIN_REPORT = 3.5;
 const FREE_THRESHOLD = 15; // minutes — minimum gap to show as "free window"
 
