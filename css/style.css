@@ -483,12 +483,12 @@ nav {
    REPORT PAGE
    ============================================================ */
 
-.report-page main { padding: 0 0 40px; overflow-x: hidden; }
+.report-page main { padding: 0; overflow-x: hidden; }
 
 .report-scroll {
-  overflow-x: auto;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 0;
+  max-height: calc(100vh - var(--nav-h) - var(--tabs-h) - 64px);
 }
 
 .report-inner {
@@ -497,11 +497,29 @@ nav {
 
 .report-ruler {
   position: sticky;
-  top: calc(var(--nav-h) + var(--tabs-h));
-  z-index: 75;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  height: 32px;
   background: var(--bg);
   border-bottom: 1px solid var(--border);
-  height: 32px;
+}
+
+.report-ruler-corner {
+  flex-shrink: 0;
+  width: 110px;
+  height: 100%;
+  position: sticky;
+  left: 0;
+  z-index: 25;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
+}
+
+.report-ruler-ticks {
+  position: relative;
+  flex-shrink: 0;
 }
 
 .ruler-label {
@@ -543,6 +561,9 @@ nav {
   color: var(--text);
   background: var(--surface);
   border-right: 1px solid var(--border);
+  position: sticky;
+  left: 0;
+  z-index: 11;
 }
 
 .report-friend-avatar {
@@ -578,7 +599,7 @@ nav {
   min-width: 4px;
 }
 
-.report-band-block:hover { filter: brightness(1.3); z-index: 10; }
+.report-band-block:hover { filter: brightness(1.3); z-index: 9; }
 
 .report-band-block span {
   font-size: 0.62rem;

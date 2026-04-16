@@ -110,14 +110,16 @@ function renderReport(dayId) {
   let html = `<div class="report-scroll">
     <div class="report-inner" style="min-width:${totalW + 20}px">`;
 
-  // Time ruler
-  html += `<div class="report-ruler" style="padding-left:${LABEL_W}px; position:sticky; top:calc(var(--nav-h) + var(--tabs-h) + 52px)">`;
+  // Time ruler — corner freezes at left:0, ticks scroll horizontally with content
+  html += `<div class="report-ruler">`;
+  html += `<div class="report-ruler-corner"></div>`;
+  html += `<div class="report-ruler-ticks" style="width:${trackW}px">`;
   for (let t = dayStart; t <= dayEnd; t += 30) {
     const left = (t - dayStart) * PX_PER_MIN_REPORT;
     html += `<span class="ruler-label" style="left:${left}px">${formatTime(minutesToHHMM(t))}</span>`;
     html += `<span class="ruler-tick"  style="left:${left}px"></span>`;
   }
-  html += `</div>`;
+  html += `</div></div>`;
 
   // Tracks area
   html += `<div class="report-tracks-outer" style="position:relative">`;
