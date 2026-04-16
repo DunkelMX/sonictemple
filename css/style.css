@@ -139,7 +139,7 @@ nav {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Stage header row — sticks below nav + day tabs */
+/* Stage header row — sticks below nav + day tabs, outside scroll wrapper */
 .timeline-header {
   position: sticky;
   top: calc(var(--nav-h) + var(--tabs-h));
@@ -148,6 +148,7 @@ nav {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   min-width: 860px;
+  overflow-x: hidden; /* scrollLeft is driven by timeline-wrapper scroll event */
 }
 
 .time-gutter {

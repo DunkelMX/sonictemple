@@ -47,15 +47,15 @@ function renderSchedule(dayId) {
 
   const attending = getAttending();
 
-  let html = `<div class="timeline-wrapper">`;
-
-  // Stage headers
-  html += `<div class="timeline-header" aria-hidden="true">`;
+  // Stage header — outside the scroll wrapper so sticky works vs the page, not the wrapper
+  let html = `<div class="timeline-header" aria-hidden="true">`;
   html += `<div class="time-gutter"></div>`;
   STAGES.forEach(st => {
     html += `<div class="stage-header" style="border-bottom-color:${st.color}">${st.name}</div>`;
   });
   html += `</div>`;
+
+  html += `<div class="timeline-wrapper">`;
 
   // Body
   html += `<div class="timeline-body">`;
@@ -105,6 +105,15 @@ function renderSchedule(dayId) {
   html += `</div>`; // timeline-wrapper
 
   container.innerHTML = html;
+
+  // Sync stage header horizontal scroll with the timeline wrapper
+  const wrapper = container.querySelector('.timeline-wrapper');
+  const header  = container.querySelector('.timeline-header');
+  if (wrapper && header) {
+    wrapper.addEventListener('scroll', () => {
+      header.scrollLeft = wrapper.scrollLeft;
+    }, { passive: true });
+  }
 
   // Attach click / keyboard handlers
   container.querySelectorAll('.band-card').forEach(card => {
