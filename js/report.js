@@ -6,9 +6,44 @@
 // =============================================================
 
 const LABEL_W   = 110;  // px — friend label column width
-const ROW_H     = 52;   // px — height of each friend row
+const LANE_H    = 24;   // px — height of each lane within a row
+const LANE_GAP  = 4;    // px — gap between lanes
+const ROW_PAD   = 8;    // px — vertical padding inside each row
 const PX_PER_MIN_REPORT = 3.5;
 const FREE_THRESHOLD = 15; // minutes — minimum gap to show as "free window"
+
+// ── Lane packing ──────────────────────────────────────────────
+// Assigns non-overlapping picks to vertical lanes within a row.
+// Returns { laneCount, laneOf: Map<band, laneIndex> }
+
+function assignLanes(picks) {
+  const sorted = [...picks].sort((a, b) => toMinutes(a.start) - toMinutes(b.start));
+  const laneEnds = []; // laneEnds[i] = end minute of last band placed in lane i
+  const laneOf   = new Map();
+
+  for (const band of sorted) {
+    const startMin = toMinutes(band.start);
+    let placed = false;
+    for (let i = 0; i < laneEnds.length; i++) {
+      if (laneEnds[i] <= startMin) {
+        laneEnds[i] = toMinutes(band.end);
+        laneOf.set(band, i);
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) {
+      laneOf.set(band, laneEnds.length);
+      laneEnds.push(toMinutes(band.end));
+    }
+  }
+
+  return { laneCount: Math.max(1, laneEnds.length), laneOf };
+}
+
+function rowHeight(laneCount) {
+  return laneCount * LANE_H + (laneCount - 1) * LANE_GAP + ROW_PAD;
+}
 
 // ── State ─────────────────────────────────────────────────────
 
@@ -92,6 +127,9 @@ function renderReport(dayId) {
 
   // Friend rows
   friendPicks.forEach(({ friend, picks: fPicks }) => {
+    const { laneCount, laneOf } = assignLanes(fPicks);
+    const rh = rowHeight(laneCount);
+
     html += `<div class="report-friend-row">
       <div class="report-friend-label" style="width:${LABEL_W}px">
         <div class="report-friend-avatar" style="background:${friend.color}">
@@ -99,7 +137,7 @@ function renderReport(dayId) {
         </div>
         <span>${escHtml(friend.name)}</span>
       </div>
-      <div class="report-friend-track" style="height:${ROW_H}px">`;
+      <div class="report-friend-track" style="height:${rh}px">`;
 
     if (fPicks.length === 0) {
       html += `<span class="report-no-picks">No picks</span>`;
@@ -112,10 +150,12 @@ function renderReport(dayId) {
       const width  = Math.max((toMinutes(band.end) - toMinutes(band.start)) * PX_PER_MIN_REPORT, 4);
       const isMeet = meets.some(m => m.band === band);
       const color  = stage?.color || '#555';
+      const lane   = laneOf.get(band) ?? 0;
+      const top    = ROW_PAD / 2 + lane * (LANE_H + LANE_GAP);
 
       html += `
         <div class="report-band-block${isMeet ? ' is-meet' : ''}"
-             style="left:${left}px; width:${width}px; background:${color}"
+             style="left:${left}px; width:${width}px; height:${LANE_H}px; top:${top}px; background:${color}"
              data-idx="${idx}"
              role="button" tabindex="0"
              title="${band.band} · ${formatTimeRange(band.start, band.end)}">

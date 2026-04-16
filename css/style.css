@@ -561,14 +561,13 @@ nav {
 .report-friend-track {
   flex: 1;
   position: relative;
-  height: 52px;
+  /* height is set dynamically in JS based on lane count */
 }
 
 /* Band blocks in report */
 .report-band-block {
   position: absolute;
-  top: 6px;
-  height: calc(100% - 12px);
+  /* top and height are set dynamically in JS per lane */
   border-radius: 3px;
   overflow: hidden;
   cursor: pointer;
