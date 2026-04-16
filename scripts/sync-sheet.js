@@ -196,6 +196,9 @@ function parsePicksCsv(csv) {
 function normalizeTime(raw) {
   raw = raw.trim().toLowerCase();
 
+  // Strip seconds added by Google Sheets CSV export: "10:05:00 pm" → "10:05 pm", "22:05:00" → "22:05"
+  raw = raw.replace(/^(\d{1,2}:\d{2}):\d{2}(\s*.*)$/, '$1$2').trim();
+
   // Already 24h "HH:MM"
   if (/^\d{1,2}:\d{2}$/.test(raw)) {
     const [h, m] = raw.split(':').map(Number);
@@ -203,7 +206,7 @@ function normalizeTime(raw) {
     return `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
   }
 
-  // 12h with am/pm suffix: "9:20p", "9:20pm", "9:20 pm"
+  // 12h with am/pm suffix: "9:20p", "9:20pm", "9:20 pm", "10:05 pm"
   const match = raw.match(/^(\d{1,2}):(\d{2})\s*(a|p|am|pm)$/);
   if (match) {
     let h = parseInt(match[1], 10);

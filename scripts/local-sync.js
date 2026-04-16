@@ -58,6 +58,8 @@ function parseCsvRow(line) {
 
 function normalizeTime(raw) {
   raw = raw.trim().toLowerCase();
+  // Strip seconds added by Google Sheets CSV export: "10:05:00 pm" → "10:05 pm", "22:05:00" → "22:05"
+  raw = raw.replace(/^(\d{1,2}:\d{2}):\d{2}(\s*.*)$/, '$1$2').trim();
   if (/^\d{1,2}:\d{2}$/.test(raw)) {
     const [h, m] = raw.split(':').map(Number);
     if (h > 23 || m > 59) return null;
