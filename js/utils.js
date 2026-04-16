@@ -13,23 +13,23 @@ function toMinutes(t) {
 
 function formatTime(t) {
   const [h, m] = t.split(':').map(Number);
-  const period = h >= 12 ? 'p' : 'a';
+  const period = h >= 12 ? 'PM' : 'AM';
   const h12   = h % 12 || 12;
   return m === 0
-    ? `${h12}${period}`
-    : `${h12}:${m.toString().padStart(2, '0')}${period}`;
+    ? `${h12} ${period}`
+    : `${h12}:${m.toString().padStart(2, '0')} ${period}`;
 }
 
-// "21:20" + "22:50" → "9:20–10:50p"
+// "21:20" + "22:50" → "9:20 – 10:50 PM"
 function formatTimeRange(start, end) {
   const [hs, ms] = start.split(':').map(Number);
   const [he, me] = end.split(':').map(Number);
   const hs12 = hs % 12 || 12;
   const he12 = he % 12 || 12;
-  const period = he >= 12 ? 'p' : 'a';
+  const period = he >= 12 ? 'PM' : 'AM';
   const sStr = ms === 0 ? `${hs12}` : `${hs12}:${ms.toString().padStart(2,'0')}`;
   const eStr = me === 0 ? `${he12}` : `${he12}:${me.toString().padStart(2,'0')}`;
-  return `${sStr}–${eStr}${period}`;
+  return `${sStr} – ${eStr} ${period}`;
 }
 
 function relativeTime(isoString) {
