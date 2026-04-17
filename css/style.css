@@ -560,6 +560,95 @@ nav {
 }
 
 /* ============================================================
+   STAGES PAGE
+   ============================================================ */
+
+.stages-page main { padding: 0 16px 40px; max-width: 900px; margin: 0 auto; }
+.stages-page .picks-controls { top: var(--nav-h); }
+
+.stage-section {
+  margin-top: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.stage-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--surface);
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--border);
+}
+
+.stage-section-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stage-section-total {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.stage-day-group { padding: 8px 16px 12px; border-bottom: 1px solid var(--border); }
+.stage-day-group:last-child { border-bottom: none; }
+
+.stage-day-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.stage-band-row {
+  display: grid;
+  grid-template-columns: 130px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px 7px 14px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+.stage-band-row:last-child { margin-bottom: 0; }
+
+.stage-band-time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.stage-band-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+}
+
+.stage-band-row .pick-card-friends {
+  padding-left: 0;
+  margin-top: 0;
+  justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+  .stage-band-row {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+}
+
+/* ============================================================
    REPORT PAGE
    ============================================================ */
 
