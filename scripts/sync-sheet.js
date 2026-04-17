@@ -29,8 +29,8 @@ const GID_SCHEDULE = process.env.GID_SCHEDULE || '0';
 const GID_PICKS    = process.env.GID_PICKS    || '1';
 const OUT_PATH     = path.join(__dirname, '..', 'js', 'data.js');
 
-// Friend columns in Picks tab (columns F onwards, 0-indexed col 5+)
-const FRIEND_IDS = ['friend1','friend2','friend3','friend4','friend5','friend6','friend7'];
+// Colors assigned to friends in column order
+const FRIEND_COLORS = ['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#1abc9c','#e91e63'];
 
 // ── Entry point ───────────────────────────────────────────────
 
@@ -47,8 +47,8 @@ async function main() {
     fetchCsv(SHEET_ID, GID_PICKS),
   ]);
 
-  const schedule = parseScheduleCsv(scheduleCsv);
-  const picks    = parsePicksCsv(picksCsv);
+  const schedule          = parseScheduleCsv(scheduleCsv);
+  const { picks, friends } = parsePicksCsv(picksCsv);
 
   // Merge picks into schedule entries
   // Key: "band|day|stage" (lowercase, normalized)
@@ -58,9 +58,9 @@ async function main() {
   });
 
   const pickedCount = schedule.filter(e => e.picks.length > 0).length;
-  console.log(`[sync-sheet] ${schedule.length} bands, ${pickedCount} with at least one pick`);
+  console.log(`[sync-sheet] ${schedule.length} bands, ${pickedCount} with at least one pick, ${friends.length} friends`);
 
-  writeDataJs(schedule);
+  writeDataJs(schedule, friends);
   console.log(`[sync-sheet] Written to ${OUT_PATH}`);
 }
 
@@ -166,7 +166,20 @@ function parseScheduleCsv(csv) {
 
 function parsePicksCsv(csv) {
   const rows = parseCsv(csv);
-  if (rows.length < 2) return {};
+  if (rows.length < 2) return { picks: {}, friends: [] };
+
+  // Build friends list from header row (columns 5+)
+  const header  = rows[0];
+  const friends = [];
+  for (let fi = 0; fi < header.length - 5; fi++) {
+    const name = (header[5 + fi] || '').trim();
+    if (!name) continue;
+    friends.push({
+      id:    slugify(name),
+      name,
+      color: FRIEND_COLORS[fi] || '#888888',
+    });
+  }
 
   const picks = {}; // key → [friendId, ...]
   for (let i = 1; i < rows.length; i++) {
@@ -174,19 +187,19 @@ function parsePicksCsv(csv) {
     const [band, day, stage] = row;
     if (!band) continue;
 
-    const key = makeKey(band.trim(), normalizeDayId(day.trim()), normalizeStageId(stage.trim()));
+    const key    = makeKey(band.trim(), normalizeDayId(day.trim()), normalizeStageId(stage.trim()));
     const picked = [];
 
-    for (let fi = 0; fi < FRIEND_IDS.length; fi++) {
+    for (let fi = 0; fi < friends.length; fi++) {
       const val = (row[5 + fi] || '').trim();
       if (val === '✅' || val.toLowerCase() === 'x' || val === '1' || val.toLowerCase() === 'yes') {
-        picked.push(FRIEND_IDS[fi]);
+        picked.push(friends[fi].id);
       }
     }
 
     if (picked.length > 0) picks[key] = picked;
   }
-  return picks;
+  return { picks, friends };
 }
 
 // ── Time normalizer ───────────────────────────────────────────
@@ -240,9 +253,13 @@ function makeKey(band, day, stage) {
   return `${band.toLowerCase()}|${day}|${stage}`;
 }
 
+function slugify(str) {
+  return str.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+}
+
 // ── Write data.js ─────────────────────────────────────────────
 
-function writeDataJs(schedule) {
+function writeDataJs(schedule, friends) {
   const sheetUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}`;
   const now      = new Date().toISOString();
 
@@ -260,15 +277,7 @@ function writeDataJs(schedule) {
 const GENERATED_AT = ${JSON.stringify(now)};
 const SHEET_SOURCE  = ${JSON.stringify(sheetUrl)};
 
-const FRIENDS = [
-  { id: 'friend1', name: 'DK',   color: '#e74c3c' },
-  { id: 'friend2', name: 'MG',   color: '#3498db' },
-  { id: 'friend3', name: 'Abel', color: '#2ecc71' },
-  { id: 'friend4', name: 'Friend4', color: '#f39c12' },
-  { id: 'friend5', name: 'Friend5', color: '#9b59b6' },
-  { id: 'friend6', name: 'Friend6', color: '#1abc9c' },
-  { id: 'friend7', name: 'Friend7', color: '#e91e63' },
-];
+const FRIENDS = ${JSON.stringify(friends, null, 2)};
 
 const STAGES = [
   { id: 'temple',    name: 'Temple',    color: '#cc0000' },
