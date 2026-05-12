@@ -173,7 +173,7 @@ function parsePicksCsv(csv) {
   const friends = [];
   for (let fi = 0; fi < header.length - 5; fi++) {
     const name = (header[5 + fi] || '').trim();
-    if (!name) continue;
+    if (!name || /^Friend\d+$/i.test(name)) continue;
     friends.push({
       id:    slugify(name),
       name,

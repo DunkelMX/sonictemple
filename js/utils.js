@@ -62,7 +62,9 @@ function getAttending() {
     const stored = localStorage.getItem(LS_ATTENDING);
     if (stored) {
       const arr = JSON.parse(stored);
-      if (Array.isArray(arr) && arr.length > 0) return arr;
+      const validIds = new Set(FRIENDS.map(f => f.id));
+      const filtered = arr.filter(id => validIds.has(id));
+      if (Array.isArray(filtered) && filtered.length > 0) return filtered;
     }
   } catch (e) { /* ignore */ }
   return FRIENDS.map(f => f.id); // default: all friends
